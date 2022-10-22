@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Roboto&display=swap');
-  
+export const GlobalStyle = createGlobalStyle` 
   html {
     box-sizing: border-box;
   }
@@ -15,7 +13,9 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    background-color: #fafafe;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color:${({theme}) =>  theme.colors.lightGrey };
   }
   
   a, button {

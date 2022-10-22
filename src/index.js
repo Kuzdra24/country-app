@@ -1,12 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import APIContextProvider from "./context/context";
+import App from "./view/App";
 
-import App from './view/App';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <APIContextProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </APIContextProvider>
 );
-

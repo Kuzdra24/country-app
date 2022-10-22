@@ -1,32 +1,95 @@
 import React from "react";
 import { GlobalStyle } from "../assets/styles/GlobalStyles";
-import APIContextProvider from "../context/context";
+import { ThemeProvider } from "styled-components";
+import { theme } from "../assets/styles/theme";
+import { useAPI } from "../context/context";
 import List from "../components/List";
 import styled from "styled-components";
+import { Navbar } from "../components/Navbar";
+import Searchbar from "../components/Searchbar/Searchbar";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import CountryDetails from "../components/Details/Details";
+import Loader from "../components/Loader";
 
 const CountryWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  max-width:1400px;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 
-function App() {
+const App = () => {
+  const { data, isLoading } = useAPI();
+
+  const countries = [
+    {
+      path: "/",
+      element: (
+        <CountryWrapper>
+          <Searchbar />
+          <List data={data} isLoading={isLoading} />
+        </CountryWrapper>
+      ),
+    },
+  ];
+
+  if (!isLoading) {
+    data.forEach(
+      ({
+        name,
+        nativeName,
+        population,
+        region,
+        subregion,
+        capital,
+        topLevelDomain,
+        currencies,
+        languages,
+        borders,
+        flag,
+      }) => {
+        countries.push({
+          path: `/${name
+            .split("")
+            .filter((e) => e.trim().length)
+            .join("")}`,
+          element: (
+            <CountryDetails
+              name={name}
+              nativeName={nativeName}
+              population={population}
+              region={region}
+              subregion={subregion}
+              capital={capital}
+              topLevelDomain={topLevelDomain}
+              currencies={currencies}
+              languages={languages}
+              borders={borders}
+              flag={flag}
+            />
+          ),
+        });
+      }
+    );
+  }
+
+  const router = createBrowserRouter(countries);
+
   return (
-    <APIContextProvider>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <h1>
-        Hello
-        <br />
-        World!
-      </h1>
-      <CountryWrapper>
-        <List />
-      </CountryWrapper>
-    </APIContextProvider>
+      <Navbar />
+      {!isLoading ? (
+        <RouterProvider router={router} />
+      ) : (
+        <CountryWrapper>
+          <Loader color="#303030" type="spokes" />
+        </CountryWrapper>
+      )}
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
