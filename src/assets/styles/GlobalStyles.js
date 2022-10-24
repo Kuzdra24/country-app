@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
   *, *::after, *::before {
     box-sizing: inherit;
     font-family: 'Roboto', sans-serif;
+    text-decoration: none;
   }
   
   body {
@@ -15,10 +16,11 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     width: 100vw;
     overflow-x: hidden;
-    background-color:${({theme}) =>  theme.colors.lightGrey };
+    background-color:${({theme}) =>  theme.colors.background };
   }
   
   a, button {
     font-family: 'Montserrat', sans-serif;
   }
+
 `;

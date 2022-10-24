@@ -5,9 +5,9 @@ import App from "./view/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <APIContextProvider>
-    <React.StrictMode>
+  <React.StrictMode>
+    <APIContextProvider>
       <App />
-    </React.StrictMode>
-  </APIContextProvider>
+    </APIContextProvider>
+  </React.StrictMode>
 );

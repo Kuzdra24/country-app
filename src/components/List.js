@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const CountryLink = styled(Link)`
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.veryDarkBlue};
+  color: ${({ theme }) => theme.colors.font};
 `;
 
 const List = () => {

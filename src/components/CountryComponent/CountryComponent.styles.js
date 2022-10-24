@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  background-color: #fff;
+  background-color: ${({theme}) => theme.colors.element};
   margin: 30px;
   display: flex;
   flex-direction: column;
-  box-shadow: 7px 8px 16px -12px rgba(187, 187, 187, 1);
+  box-shadow: ${({theme}) => theme.boxShadow};
   width: 100%;
   max-width: 250px;
   border-radius: 5px;

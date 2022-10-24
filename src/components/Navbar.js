@@ -1,28 +1,27 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { ReactComponent as Moon } from "../assets/icons/moon.svg";
+import { ReactComponent as Sun } from "../assets/icons/sun.svg";
 import { APIContext } from "../context/context";
 
 const NavWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.elements};
   width: 100vw;
-  color: ${({ theme, isDark }) =>
-    isDark ? theme.colors.white : theme.colors.veryDarkBlue};
+  color: ${({ theme }) => theme.colors.font};
   height: 80px;
   display: flex;
   justify-content: space-between;
   padding: 0 12%;
   align-items: center;
-  box-shadow: 7px 8px 16px -12px rgba(187, 187, 187, 1);
+  box-shadow: ${({theme }) => theme.boxShadow};
   button {
     display: flex;
     align-items: center;
     border: none;
-    color: ${({ theme, isDark }) =>
-      isDark ? theme.colors.white : theme.colors.veryDarkBlue};
-    background-color: ${({ theme, isDark }) =>
-      isDark ? theme.colors.darkBlue : theme.colors.white};
+    color: ${({ theme }) => theme.colors.font};
+    background-color: ${({ theme }) => theme.colors.elements};
     cursor: pointer;
+    font-family: 'Kanit', sans-serif;
   }
 `;
 
@@ -34,15 +33,20 @@ const Icon = styled.div`
 
 export const Navbar = () => {
   const ctx = useContext(APIContext);
-
+  
   return (
-    <NavWrapper isDark={ctx.isDark}>
+    <NavWrapper>
       <h1>Where in the world?</h1>
-      <button>
+      <button
+        onClick={() => {
+          ctx.toggleTheme();
+          console.log(ctx.theme.colors);
+        }}
+      >
         <Icon>
-          <Moon />
+          {ctx.isDark ? <Moon/> : <Sun fill='#fff'/>}
         </Icon>
-        <p>DarkMode</p>
+        <p>ChangeMode</p>
       </button>
     </NavWrapper>
   );

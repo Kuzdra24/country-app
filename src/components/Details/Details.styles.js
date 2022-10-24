@@ -7,7 +7,8 @@ export const Wrapper = styled.div`
   padding: 10px;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 50px auto;
+  color: ${({theme}) => theme.colors.font};
   div {
     display: flex;
     flex-wrap: wrap;
@@ -25,12 +26,15 @@ export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px;
+  p{
+    width: 350px;
+  }
 `;
 
 export const Border = styled.div`
   padding: 5px 10px;
   border: 1px solid ${({ theme }) => theme.colors.lightPurple};
-  box-shadow: 7px 8px 16px -12px rgba(187, 187, 187, 1);
+  box-shadow: ${({theme }) => theme.boxShadow};
   margin: 5px;
 `;
 
@@ -45,10 +49,11 @@ export const BorderWrapper = styled.div`
 `;
 
 export const Button = styled.button`
-  padding: 6px 14px;
-  border: 1px solid ${({ theme }) => theme.colors.lightPurple};
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: 7px 8px 16px -12px rgba(187, 187, 187, 1);
+  padding: 8px 18px;
+  border: none;
+  color: ${({ theme }) => theme.colors.font};
+  background-color: ${({ theme }) => theme.colors.elements};
+  box-shadow: ${({theme }) => theme.boxShadow};
   margin: 5px;
   cursor: pointer;
 `;

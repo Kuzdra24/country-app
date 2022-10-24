@@ -1,7 +1,6 @@
-import React from "react";
+import React, {useContext} from "react";
 import { GlobalStyle } from "../assets/styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
-import { theme } from "../assets/styles/theme";
 import { useAPI } from "../context/context";
 import List from "../components/List";
 import styled from "styled-components";
@@ -10,6 +9,7 @@ import Searchbar from "../components/Searchbar/Searchbar";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import CountryDetails from "../components/Details/Details";
 import Loader from "../components/Loader";
+import { APIContext } from "../context/context";
 
 const CountryWrapper = styled.div`
   display: flex;
@@ -22,6 +22,7 @@ const CountryWrapper = styled.div`
 
 const App = () => {
   const { data, isLoading } = useAPI();
+  const ctx = useContext(APIContext);
 
   const countries = [
     {
@@ -78,7 +79,7 @@ const App = () => {
   const router = createBrowserRouter(countries);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={ctx.theme}>
       <GlobalStyle />
       <Navbar />
       {!isLoading ? (

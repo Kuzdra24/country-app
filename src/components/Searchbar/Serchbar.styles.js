@@ -7,13 +7,17 @@ export const InputWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 7px 8px 16px -12px rgba(187, 187, 187, 1);
+  box-shadow: ${({theme }) => theme.boxShadow};
+  h1{
+    display: flex;
+    max-width: 400px;
+  }
 `;
 
 export const Button = styled.button`
   width: 40px;
   height: 40px;
-  background-color: white;
+  background-color: ${({theme }) => theme.colors.elements};
   border: none;
   display: flex;
   justify-content: center;
@@ -23,6 +27,8 @@ export const Button = styled.button`
 export const Input = styled.input`
   width: 100%;
   height: 100%;
+  background-color: ${({theme }) => theme.colors.elements};
+  color: ${({theme }) => theme.colors.font};
   border: none;
   padding: 0 15px;
 `;
@@ -37,5 +43,14 @@ export const Wrapper = styled.div`
   select {
     height: 40px;
     margin-left: 30px;
+    background-color: ${({ theme }) => theme.colors.element}
   }
 `;
+
+export const Select = styled.select`
+  color: ${({ theme }) => theme.colors.font};
+  background-color: ${({ theme }) => theme.colors.elements};
+  border: none;
+  box-shadow: ${({theme }) => theme.boxShadow};
+  padding: 5px 10px;
+`

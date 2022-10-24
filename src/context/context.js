@@ -1,42 +1,49 @@
 import React, { useContext, useState, useEffect, createContext } from "react";
+import { lightTheme } from "../assets/styles/lightTheme";
+import { darkTheme } from "../assets/styles/darkTheme";
 import axios from "axios";
 
 export const APIContext = createContext({
   countries: [],
   isLoading: true,
-  isDark: false,
-  changeMode: () => {},
+  theme: lightTheme,
+  isDark: true,
+  toggleTheme: () => {},
   filterCoutries: () => {},
   filterByRegion: () => {},
 });
 
 function APIContextProvider({ children }) {
   // Initialize state
-  const [data, setData] = useState();
   const [allCoutries, setAllCoutries] = useState();
+  const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+  const [theme, setTheme] = useState(lightTheme);
+
+  const toggleTheme = () => {
+    isDark ? setTheme(darkTheme) : setTheme(lightTheme);
+    setIsDark(!isDark);
+  };
 
   const filterCoutries = (inputValue) => {
-    setData(allCoutries);
-    console.log(data);
-    const filterCountries = data.filter(({ name }) =>
+    const filterCountries = allCoutries.filter(({ name }) =>
       name.toLowerCase().includes(inputValue.toLowerCase().trim())
     );
     setData(filterCountries);
   };
 
   const filterByRegion = (option) => {
-    setData(allCoutries);
-    console.log(data);
-    const filterData = data.filter(
-      ({ region }) => region.toLowerCase() === option.toLowerCase()
-    );
-    setData(filterData);
-  };
-
-  const changeMode = () => {
-    setIsDark(!isDark);
+    if(option){
+      const filterData = allCoutries.filter(
+        ({ region }) => region.toLowerCase() === option.toLowerCase()
+      );
+      setData(filterData);
+    }
+    else{
+      setData(allCoutries)
+    }
+    
   };
 
   // Fetch data
@@ -57,10 +64,11 @@ function APIContextProvider({ children }) {
       value={{
         data,
         isLoading,
+        theme,
         isDark,
+        toggleTheme,
         filterCoutries,
         filterByRegion,
-        changeMode,
       }}
     >
       {children}
@@ -78,10 +86,3 @@ export function useAPI() {
   return context;
 }
 
-export function useMode() {
-  const context = useContext(APIContext);
-  if (context === undefined) {
-    throw new Error("Context must be used within a Provider");
-  }
-  return context.isDark;
-}
